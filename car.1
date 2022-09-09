@@ -1,0 +1,66 @@
+
+
+
+CAR(1)              UNIX Programmer's Manual               CAR(1)
+
+
+
+NNAAMMEE
+     car - CP/M* transfer utility
+
+SSYYNNOOPPSSIISS
+     ccaarr key device [ file ... ]
+
+DDEESSCCRRIIPPTTIIOONN
+     _C_a_r maintains a CP/M compatible file system using a syntax
+     similar to _a_r(1).
+
+     _K_e_y is one character from the set ddrrttxx,, optionally con-
+     catenated with one or more of vvccaa.. _D_e_v_i_c_e is the file or
+     device for the CP/M file system, which will be created if
+     necessary after a yy response to the query.  The meanings of
+     the _k_e_y characters are:
+
+     dd    Delete all named files from the device, or all files on
+          device if no specific files are named.  Deletion of all
+          files is queried before being obeyed.
+
+     rr    Replace the named files on the device.
+
+     tt    Print a table of contents of the device.  When used
+          with vv will also give some statistics, assuming an 8"
+          single sided, single density IBM format diskette.
+
+     xx    Extract the named files.  If no names are given, all
+          files in the archive are extracted.  In neither case
+          does xx alter the contents of the device.
+
+     vv    Verbose.  Under the verbose option, _c_a_r gives a file-
+          by-file description of what it is doing.  When used
+          with tt,, it gives a long listing of all information
+          about the files, and some space statistics.
+
+     cc    Clobber the device.  All files are deleted before any
+          other operation is commenced.  This command is queried
+          before being obeyed.
+
+     aa    Use "ascii" mode.  In option rr carriage returns are
+          inserted before newlines on the copy.  In option xx new-
+          lines are deleted, carriage returns are replaced by
+          newlines, and the CP/M end-of-file marker (control-z)
+          is heeded.
+
+BBUUGGSS
+     Won't handle double sided or double density diskette for-
+     mats.  Files cannot be replaced onto the device in any other
+     user area than user zero.  * CP/M is a trademark of Digital
+     Research Ltd.
+
+
+
+
+
+Printed 27/11/83                                                1
+
+
+
