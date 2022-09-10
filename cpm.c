@@ -2,6 +2,8 @@
  * CP/M Archiver. Copyright 1983 Clifford Heath. See the LICENSE
  */
 #include	"cpm.h"
+#include	<stdio.h>
+int	strncmp();
 
 FCB	cpm_dir[NDIR];
 char	cpm_buf[1024];
@@ -12,7 +14,9 @@ int	cpm_fclus;
 FCB	*findent(),
 	*mkentry(),
 	*cpm_fopen();
+void	formatfcb(), copyfcb();
 
+void
 cpm_format()
 {
 	byte	k;
@@ -23,6 +27,7 @@ cpm_format()
 	cpm_dirty = 1;
 }
 
+void
 cpm_start(name)
 char *name;
 {
@@ -65,6 +70,7 @@ cpm_getdir()
 	return ok;
 }
 
+void
 cpm_end()
 {
 	byte	k;
@@ -214,6 +220,7 @@ long	where;
 	return c;
 }
 
+void
 cpm_close(fcb)
 FCB	*fcb;
 {
@@ -306,6 +313,7 @@ getcluster() /* find a free cluster */
 	return 0;
 }
 
+void
 formatfcb(fcb,nam)
 FCB	*fcb;
 byte	*nam;
@@ -336,6 +344,7 @@ byte	*nam;
 	fcb->records = 0;
 }
 
+void
 copyfcb(fcb1,fcb2)
 FCB	*fcb1,*fcb2;
 {

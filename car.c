@@ -13,7 +13,9 @@ int	nfiles;
 char	cmd = 0;
 char	*device;
 char	**files;
-int	replace(), delete(), extract();
+void	replace(), delete(), extract(), listdir(), forall(), extrall(), show();
+void	exit();
+int	strncmp();
 
 main(argc,argv)
 char **argv;
@@ -53,10 +55,12 @@ char **argv;
 	}
 
 	if (cmd == 0)
+	{
 		if (clobber)
 			cmd = 'r';
 		else
 			erexit("One of [tcrxd] must be specified\n");
+	}
 	if (!nfiles && cmd == 'd') {
 		clobber++;
 		cmd = 0;
@@ -109,6 +113,7 @@ char	*s;
 	exit(1);
 }
 
+void
 forall(f)
 int	(*f)();
 {
@@ -116,6 +121,7 @@ int	(*f)();
 		(*f)(*files++);
 }
 
+void
 listdir()
 {
 	long	size[NDIR];
@@ -155,7 +161,7 @@ listdir()
 		if (verbose) {
 			while (k++ < 13) /* Count up to 14 chars output */
 				putchar(' ');
-			printf("%9D \t",size[d-cpm_dir]*128L);
+			printf("%9ld \t",size[d-cpm_dir]*128L);
 			if (~files&01)
 				putchar('\n');
 		} else
@@ -168,6 +174,7 @@ listdir()
 	printf("\n%d files, %dk used, %dk free\n",files,clusters,cpm_fclus);
 }
 
+void
 replace(f)
 char	*f;
 {
@@ -230,6 +237,7 @@ out:	close(fd);
 	cpm_close(fcb);
 }
 
+void
 extract(f)
 char	*f;
 {
@@ -277,15 +285,17 @@ out:	close(fd);
 	cpm_close(fcb);
 }
 
+void
 delete(f)
 char	*f;
 {
 	if (cpm_delete(f))
 		show('d',f);
 	else
-		printf("%f not found on %s\n",f,device);
+		printf("%s not found on %s\n",f,device);
 }
 
+void
 extrall()
 {
 	FCB	*d;
@@ -315,6 +325,7 @@ lcase(c)
 	return c;
 }
 
+void
 show(c,f)
 char	c, *f;
 {
